@@ -1,43 +1,30 @@
-interface MockData {
-    ticker: string;
-    companyName: string;
-    date: string;
-    price: string;
-    priceChange: string;
-    priceChangePercentage: string;
-    socialMediaCount: number;
-}
+export function generateMockStocks() {
+    const stocks = [
+        { ticker: "AAPL", companyName: "Apple Inc.", image: "https://financialmodelingprep.com/image-stock/AAPL.png" },
+        { ticker: "GOOGL", companyName: "Alphabet Inc.", image: "https://financialmodelingprep.com/image-stock/GOOGL.png" },
+        { ticker: "AMZN", companyName: "Amazon.com Inc.", image: "https://financialmodelingprep.com/image-stock/AMZN.png" },
+        { ticker: "COST", companyName: "Costco Wholesale Corporation", image: "https://financialmodelingprep.com/image-stock/COST.png" },
+    ];
 
-export function generateMockData(stockSymbol: string, days: number): MockData[] {
-    const mockData: MockData[] = [];
-    for (let i = 0; i < days; i++) {
-        const price = Math.random() * 1000; // Random price between 0 and 1000
-        const socialMediaCount = Math.floor(Math.random() * 1000); // Random social media count
-        const priceChange = Math.random() > 0.5 ? price * 0.05 : price * -0.05; // Random 5% change
+    return stocks.map(stock => {
+        // Generate a random price and price change
+        const price = (Math.random() * 1000).toFixed(2);
+        const priceChange = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 10).toFixed(2);
+        const priceChangePercentage = ((parseFloat(priceChange) / parseFloat(price)) * 100).toFixed(2);
+        const socialMediaCount = Math.floor(Math.random() * 1000);
 
-        mockData.push({
-            ticker: stockSymbol,
-            companyName: `${stockSymbol} Corp`,
-            date: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toLocaleDateString(), // Generate past dates
-            price: price.toFixed(2),
-            priceChange: priceChange.toFixed(2),
-            priceChangePercentage: ((priceChange / price) * 100).toFixed(2),
+        // Generate mock prices for the last 10 days
+        const prices = Array.from({ length: 10 }).map(() => ({
+            value: parseFloat((Math.random() * 1000).toFixed(2)) // Convert to an object with a value property
+        }));
+
+        return {
+            ...stock,
+            price: parseFloat(price),
+            priceChange: parseFloat(priceChange),
+            priceChangePercentage: parseFloat(priceChangePercentage),
             socialMediaCount,
-        });
-    }
-    return mockData.reverse(); // So the latest data is shown first
+            prices, // Last 10 days of mock prices as objects
+        };
+    });
 }
-  
-  export function getRecommendation(data: MockData) {
-    const { priceChangePercentage, socialMediaCount } = data;
-    
-    // Simple recommendation logic
-    if (socialMediaCount > 500 && priceChangePercentage > 0) {
-      return "Buy";
-    } else if (priceChangePercentage < 0 && socialMediaCount < 500) {
-      return "Sell";
-    } else {
-      return "Hold";
-    }
-  }
-  
