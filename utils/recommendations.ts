@@ -4,30 +4,25 @@ export function getRecommendation(
   stockPrices: { value: number }[],
   socialMediaCount: number
 ): Recommendation {
+  // Check for valid stock price data
   if (!stockPrices || stockPrices.length < 2) return "hold";
 
   const initialPrice = stockPrices[0].value;
   const latestPrice = stockPrices[stockPrices.length - 1].value;
-  const priceChange = latestPrice / initialPrice;
 
-  console.log("Initial Price:", initialPrice);
-  console.log("Latest Price:", latestPrice);
-  console.log("Price Change:", priceChange);
-  console.log("Social Media Count:", socialMediaCount);
+  // Calculate the price change ratio
+  const priceChangeRatio = latestPrice / initialPrice;
 
-  // Set thresholds for social media activity
-  const highSocialMediaCount = 500;
-  const lowSocialMediaCount = 200;
+  // Define thresholds for social media activity
+  const highSocialMediaCountThreshold = 1000;
+  const lowSocialMediaCountThreshold = 100;
 
-  // Debug the price and social media thresholds
-  if (priceChange > 1.1 && socialMediaCount > highSocialMediaCount) {
-    console.log("Recommendation: sell");
+  // Decision logic for recommendations
+  if (priceChangeRatio > 1.1 && socialMediaCount > highSocialMediaCountThreshold) {
     return "sell";
-  } else if (priceChange < 0.9 && socialMediaCount < lowSocialMediaCount) {
-    console.log("Recommendation: buy");
+  } else if (priceChangeRatio < 0.9 && socialMediaCount < lowSocialMediaCountThreshold) {
     return "buy";
   } else {
-    console.log("Recommendation: hold");
     return "hold";
   }
 }

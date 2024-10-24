@@ -3,8 +3,8 @@ import {
   View,
   Pressable,
   FlatList,
-  useWindowDimensions,
 } from "react-native";
+import { router } from "expo-router";
 import { Text } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
@@ -26,11 +26,7 @@ export default function TickerScreen() {
     stockPrices.length > 1
       ? stockPrices[stockPrices.length - 1].value > stockPrices[0].value
       : false;
-
-  console.log('Stock Prices:', stockPrices); // Log the stock prices array
-  console.log('Initial Price:', stockPrices[0]?.value); // Check the initial price
-  console.log('Latest Price:', stockPrices[stockPrices.length - 1]?.value); // Check the latest price
-
+      
   // Recommendation Logic - Pass both stockPrices and socialMediaCount
   const recommendation = stockPrices.length > 0
     ? getRecommendation(stockPrices, socialMediaCount)

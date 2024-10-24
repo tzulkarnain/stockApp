@@ -11,7 +11,6 @@ export default function HomeScreen() {
     useEffect(() => {
         // Generate mock data when the component mounts
         const mockData = generateMockStocks();
-        console.log(mockData); // Log to check the mock data
         setStocks(mockData);
     }, []);
 
@@ -27,9 +26,6 @@ export default function HomeScreen() {
                 keyExtractor={(item) => item.ticker}
                 data={stocks}
                 renderItem={({ item }) => {
-                    console.log('Rendering StockCard for:', item.ticker); // Log for each stock
-                    console.log('Prices:', item.prices); // Log the prices array
-                    console.log('Sliced Prices:', item.prices.slice(-timeWindow)); // Log the sliced prices
                     return (
                         <StockCard
                             companyName={item.companyName}
