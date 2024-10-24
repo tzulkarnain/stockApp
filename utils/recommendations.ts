@@ -10,17 +10,17 @@ export function getRecommendation(
   const initialPrice = stockPrices[0].value;
   const latestPrice = stockPrices[stockPrices.length - 1].value;
 
-  // Calculate the price change ratio
-  const priceChangeRatio = latestPrice / initialPrice;
+  // Calculate the price change percentage
+  const priceChangePercentage = ((latestPrice - initialPrice) / initialPrice) * 100;
 
   // Define thresholds for social media activity
-  const highSocialMediaCountThreshold = 1000;
+  const highSocialMediaCountThreshold = 500;
   const lowSocialMediaCountThreshold = 100;
 
   // Decision logic for recommendations
-  if (priceChangeRatio > 1.1 && socialMediaCount > highSocialMediaCountThreshold) {
+  if (priceChangePercentage > 5 && socialMediaCount > highSocialMediaCountThreshold) {
     return "sell";
-  } else if (priceChangeRatio < 0.9 && socialMediaCount < lowSocialMediaCountThreshold) {
+  } else if (priceChangePercentage < -5 && socialMediaCount < lowSocialMediaCountThreshold) {
     return "buy";
   } else {
     return "hold";
