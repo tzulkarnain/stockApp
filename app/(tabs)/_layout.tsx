@@ -33,20 +33,6 @@ export default function TabLayout() {
         options={{
           title: "Stock Recommendations",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          // header: () => (
-          //   <Pressable
-          //     style={{ width: "100%", paddingHorizontal: 20, paddingTop: 50 }}
-          //     onPress={() => router.push("/search")}
-          //   >
-          //     <TextInput
-          //       placeholder="Search Stocks..."
-          //       disabled
-          //       mode="outlined"
-          //       left={<TextInput.Icon icon={"magnify"} />}
-          //       onPressIn={() => router.push("/search")}
-          //     />
-          //   </Pressable>
-          // ),
         }}
       />
       <Tabs.Screen

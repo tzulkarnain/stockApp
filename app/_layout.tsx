@@ -12,8 +12,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { theme } from "@/theme";
 import { SearchableStock } from "@/data";
 import { searchStocks } from "@/utils/searchStocks";
-import { Pressable } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 
 export {
   // Catch any errors thrown by the Layout component.
